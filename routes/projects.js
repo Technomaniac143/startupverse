@@ -59,4 +59,23 @@ router.get("/analytics", async (req, res) => {
     }
 });
 
+// 3️⃣ SEARCH API
+router.get("/search", async (req, res) => {
+    try {
+        const query = req.query.q;
+        if (!query) {
+            return res.status(400).json({ error: "Search query required" });
+        }
+
+        const projects = await Project.find({
+            title: { $regex: query, $options: "i" }
+        }).select('_id title description total_score stars domain risk_level');
+
+        res.json(projects);
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ error: "Search failed" });
+    }
+});
+
 module.exports = router;

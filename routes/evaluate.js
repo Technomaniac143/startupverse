@@ -37,12 +37,11 @@ router.post("/", validate(evaluateSchema), async (req, res) => {
 
         if (project.total_score > 70) {
             const Notification = require("../models/Notification");
-            const userId = req.body.userId || "default-user";
             
             await Notification.create({
-                userId: userId,
+                userId: "projectOwner",
                 message: "Your project is now investor-ready!",
-                type: "investor_ready"
+                type: "achievement"
             });
         }
 
