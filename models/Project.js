@@ -21,7 +21,11 @@ const ProjectSchema = new mongoose.Schema({
     stars: Number,
     domain: String,
     risk_level: String,
-    feedback: String
+    feedback: String,
+    createdAt: {
+        type: Date,
+        default: Date.now
+    }
 
 }, { timestamps: true });
 

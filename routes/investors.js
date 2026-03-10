@@ -9,6 +9,9 @@ TEMPORARY ROUTE
 This inserts some sample investors into the database
 */
 router.get("/seed", async (req, res) => {
+    if (process.env.NODE_ENV !== 'development') {
+        return res.status(403).json({ error: "Forbidden: Seeding is only allowed in development mode" });
+    }
 
     try {
 
